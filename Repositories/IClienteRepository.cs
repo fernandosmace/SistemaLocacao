@@ -5,10 +5,12 @@ namespace SistemaLocacao.Repositories
 {
     public interface IClienteRepository
     {
+
+        public Task<List<Cliente>> Get();
         public Task<Cliente> Get(int idCliente);
-        public Task<List<Cliente>> GetAll();
-        public Task<Cliente> Create(ClienteInput clienteInput);
-        public Task<Cliente> Update(ClienteInput clienteInput);
+        public Task<Cliente> Get(string CPF);
+        public Task<Cliente> Create(Cliente cliente);
+        public Task<Cliente> Update(Cliente cliente);
         public Task<int> Delete(int idCliente);
     }
 }
