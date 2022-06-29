@@ -28,7 +28,7 @@ namespace SistemaLocacao.Data.Mapping
                 .WithMany(x => x.Locacoes)
                 .HasConstraintName("FK_Filme_Locacao");
 
-            builder.HasIndex(x => x.Id, "PRIMARY");
+            builder.HasIndex(x => x.Id, "Locacao_PRIMARY");
 
             builder.HasIndex(x => x.ClienteId, "FK_Cliente_idx")
                 .IsUnique();

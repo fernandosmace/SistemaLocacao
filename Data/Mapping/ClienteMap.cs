@@ -27,7 +27,7 @@ namespace SistemaLocacao.Data.Mapping
                 .HasColumnType("VARCHAR")
                 .HasMaxLength(11);
 
-            builder.HasIndex(x => x.Id, "PRIMARY");
+            builder.HasIndex(x => x.Id, "Cliente_PRIMARY");
 
             builder.HasIndex(x => x.CPF, "idx_CPF")
                 .IsUnique();
