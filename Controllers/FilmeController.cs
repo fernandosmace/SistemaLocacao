@@ -79,5 +79,37 @@ namespace SistemaLocacao.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError);
             }
         }
+
+        /// <summary>
+        /// Atualizar um Filme
+        /// </summary>
+        /// <param name="filmeInput"></param>
+        /// <response code="200">Filme atualizado com sucesso</response>
+        /// <response code="400">Requisição inválida</response>
+        /// <response code="404">Filme não encontrado</response>
+        /// <response code="500">Erro interno</response>
+        [HttpPatch]
+        public async Task<IActionResult> Update([FromBody] FilmeUpdateInput filmeInput)
+        {
+            try
+            {
+                var filme = await _filmeRepository.Get(filmeInput.Id);
+                if (filme == null)
+                    return NotFound("Filme não encontrado");
+
+                filme.Titulo = filmeInput.Titulo;
+                filme.ClassificacaoIndicativa = filmeInput.ClassificacaoIndicativa;
+                filme.Lancamento = filmeInput.Lancamento;
+
+                _filmeRepository.Update(filme);
+
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+        }
     }
 }
