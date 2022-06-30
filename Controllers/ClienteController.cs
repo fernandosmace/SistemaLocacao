@@ -21,9 +21,9 @@ namespace SistemaLocacao.Controllers
         /// Busca um cliente através do Id
         /// </summary>
         /// <param name="idCliente"></param>
-        /// <response code="200">Retorna o Cliente<response>
-        /// <response code="204">Caso o Cliente não seja encontrado<response>
-        /// <response code="500">Erro interno<response>
+        /// <response code="200">Retorna o Cliente</response>
+        /// <response code="204">Caso o Cliente não seja encontrado</response>
+        /// <response code="500">Erro interno</response>
         [HttpGet("{idCliente}")]
         public async Task<IActionResult> Get(int idCliente)
         {
@@ -47,8 +47,8 @@ namespace SistemaLocacao.Controllers
         /// <summary>
         /// Busca todos os clietes
         /// </summary>
-        /// <response code="200">Retorna todos os clientes<response>
-        /// <response code="500">Erro interno<response>
+        /// <response code="200">Retorna todos os clientes</response>
+        /// <response code="500">Erro interno</response>
         [HttpGet]
         public async Task<IActionResult> Get()
         {
@@ -61,10 +61,10 @@ namespace SistemaLocacao.Controllers
         /// Inserir um novo Cliente
         /// </summary>
         /// <param name="ClienteInput"></param>
-        /// <response code="200">Cliente inserido com sucesso<response>
-        /// <response code="202">Cliente já cadastrado<response>
-        /// <response code="400">Requisição inválida<response>
-        /// <response code="500">Erro interno<response>
+        /// <response code="200">Cliente inserido com sucesso</response>
+        /// <response code="202">Cliente já cadastrado</response>
+        /// <response code="400">Requisição inválida</response>
+        /// <response code="500">Erro interno</response>
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] ClienteInput clienteInput)
         {

@@ -1,4 +1,6 @@
+using System.Reflection;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
 using SistemaLocacao.Data;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,7 +15,19 @@ builder.Services.AddDbContext<SistemaLocacaoDbContext>(options =>
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(options =>
+{
+    options.SwaggerDoc("v1", new OpenApiInfo
+    {
+        Version = "v1",
+        Title = "Sistema de Locação",
+        Description = "WEB API para o sistema de locação com CRUDs para clientes, filmes e locações, além de relatórios.",
+    });
+
+    // using System.Reflection;
+    var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
+});
 
 var app = builder.Build();
 
