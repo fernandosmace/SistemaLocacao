@@ -106,6 +106,66 @@ namespace SistemaLocacao.Controllers
         }
 
         /// <summary>
+        /// Inserir uma nova Locação
+        /// </summary>
+        /// <param name="locacaoInput"></param>
+        /// <response code="200">Locação inserida com sucesso</response>
+        /// <response code="202">Locação já cadastrada</response>
+        /// <response code="400">Requisição inválida</response>
+        /// <response code="404">Cliente não encontrado</response>
+        /// <response code="404">Filme não encontrado</response>
+        /// <response code="500">Erro interno</response>
+        [HttpPost]
+        public async Task<IActionResult> Create([FromBody] LocacaoInput locacaoInput)
+        {
+            try
+            {
+                var cliente = await _clienteRepository.Get(locacaoInput.ClienteId);
+                if (cliente == null)
+                    return NotFound("Cliente não encontrado.");
+
+                var filme = await _filmeRepository.Get(locacaoInput.FilmeId);
+                if (filme == null)
+                    return NotFound("Filme não encontrado.");
+
+                var locacaoCreated = await _locacaoRepository.Create(new Locacao
+                {
+                    DataLocacao = DateTime.Now,
+                    Cliente = cliente,
+                    Filme = filme
+                });
+
+                var locacaoOutput = new LocacaoOutput
+                {
+                    Id = locacaoCreated.Id,
+                    DataLocacao = locacaoCreated.DataLocacao,
+                    DataDevolucao = locacaoCreated.DataDevolucao,
+                    Cliente = new ClienteOutput
+                    {
+                        Id = locacaoCreated.Cliente.Id,
+                        Nome = locacaoCreated.Cliente.Nome,
+                        CPF = locacaoCreated.Cliente.CPF,
+                        DataNascimento = locacaoCreated.Cliente.DataNascimento
+                    },
+                    Filme = new FilmeOutput
+                    {
+                        Id = locacaoCreated.Filme.Id,
+                        Titulo = locacaoCreated.Filme.Titulo,
+                        ClassificacaoIndicativa = locacaoCreated.Filme.ClassificacaoIndicativa,
+                        Lancamento = locacaoCreated.Filme.Lancamento
+                    }
+                };
+
+                return Ok(locacaoOutput);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+        }
+
+        /// <summary>
         /// Atualiza uma Locação
         /// </summary>
         /// <param name="locacaoInput"></param>
