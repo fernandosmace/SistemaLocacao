@@ -55,7 +55,20 @@ namespace SistemaLocacao.Controllers
         {
             var clientes = await _clienteRepository.Get();
 
-            return Ok(clientes);
+            var clientesOutput = new List<ClienteOutput>();
+
+            foreach (var cliente in clientes)
+            {
+                clientesOutput.Add(new ClienteOutput
+                {
+                    Id = cliente.Id,
+                    Nome = cliente.Nome,
+                    CPF = cliente.CPF,
+                    DataNascimento = cliente.DataNascimento
+                });
+            }
+
+            return Ok(clientesOutput);
         }
 
         /// <summary>
