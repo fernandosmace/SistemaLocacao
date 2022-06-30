@@ -9,6 +9,6 @@ namespace SistemaLocacao.Repositories
         public Task<List<Filme>> GetAll();
         public Task<Filme> Create(Filme filme);
         public Task Update(Filme filme);
-        public Task Delete(int idFilme);
+        public Task Delete(Filme filme);
     }
 }
