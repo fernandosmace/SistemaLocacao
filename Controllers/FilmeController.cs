@@ -52,6 +52,32 @@ namespace SistemaLocacao.Controllers
         }
 
         /// <summary>
+        /// Busca todos os Filmes
+        /// </summary>
+        /// <response code="200">Retorna todos os Filmes</response>
+        /// <response code="500">Erro interno</response>
+        [HttpGet]
+        public async Task<IActionResult> Get()
+        {
+            var filmes = await _filmeRepository.Get();
+
+            var filmesOutput = new List<FilmeOutput>();
+
+            foreach (var filme in filmes)
+            {
+                filmesOutput.Add(new FilmeOutput
+                {
+                    Id = filme.Id,
+                    Titulo = filme.Titulo,
+                    ClassificacaoIndicativa = filme.ClassificacaoIndicativa,
+                    Lancamento = filme.Lancamento
+                });
+            }
+
+            return Ok(filmesOutput);
+        }
+
+        /// <summary>
         /// Inserir um novo Filme
         /// </summary>
         /// <param name="filmeInput"></param>
