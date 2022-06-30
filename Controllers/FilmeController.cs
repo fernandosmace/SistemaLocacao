@@ -32,7 +32,7 @@ namespace SistemaLocacao.Controllers
             if (filme == null)
                 return NotFound("Filme não encontrado");
 
-            var filmeOutput = new FilmeOutput
+            var filmeCreated = new FilmeOutput
             {
                 Id = filme.Id,
                 Titulo = filme.Titulo,
@@ -40,7 +40,15 @@ namespace SistemaLocacao.Controllers
                 Lancamento = filme.Lancamento
             };
 
-            return Ok(filme);
+            var filmeOutput = new FilmeOutput
+            {
+                Id = filmeCreated.Id,
+                Titulo = filmeCreated.Titulo,
+                ClassificacaoIndicativa = filmeCreated.ClassificacaoIndicativa,
+                Lancamento = filmeCreated.Lancamento
+            };
+
+            return Ok(filmeOutput);
         }
 
         /// <summary>
