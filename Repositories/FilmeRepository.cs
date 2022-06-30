@@ -21,7 +21,7 @@ namespace SistemaLocacao.Repositories
                                         .FirstOrDefaultAsync(x => x.Id == idFilme));
         }
 
-        public async Task<List<Filme>> GetAll()
+        public async Task<List<Filme>> Get()
         {
             return await Task.FromResult(await _contexto
                                         .Filmes
