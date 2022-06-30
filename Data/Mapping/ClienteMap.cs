@@ -27,6 +27,10 @@ namespace SistemaLocacao.Data.Mapping
                 .HasColumnType("VARCHAR")
                 .HasMaxLength(11);
 
+            builder.HasMany(x => x.Locacoes)
+                .WithOne(x => x.Cliente)
+                .HasConstraintName("FK_Cliente_Locacao");
+
             builder.HasIndex(x => x.Id, "Cliente_PRIMARY")
                 .IsUnique();
 

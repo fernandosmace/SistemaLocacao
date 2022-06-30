@@ -31,6 +31,10 @@ namespace SistemaLocacao.Data.Mapping
                 .HasColumnName("Lancamento")
                 .HasColumnType("TINYINT");
 
+            builder.HasMany(x => x.Locacoes)
+                .WithOne(x => x.Filme)
+                .HasConstraintName("FK_Filme_Locacao");
+
             builder.HasIndex(x => x.Id, "Filme_PRIMARY")
                 .IsUnique();
 
