@@ -1,6 +1,6 @@
 namespace SistemaLocacao.DTO.Output
 {
-    public class Filme
+    public class FilmeOutput
     {
         public int Id { get; set; }
         public string Titulo { get; set; }
