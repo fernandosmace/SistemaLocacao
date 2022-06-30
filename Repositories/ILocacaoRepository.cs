@@ -7,8 +7,8 @@ namespace SistemaLocacao.Repositories
     {
         public Task<Locacao> Get(int idLocacao);
         public Task<List<Locacao>> GetAll();
-        public Task<Locacao> Create(LocacaoInput locacaoInput);
-        public Task<Locacao> Update(LocacaoInput locacaoInput);
-        public Task<int> Delete(int idLocacao);
+        public Task<Locacao> Create(Locacao locacao);
+        public Task Update(Locacao locacao);
+        public Task Delete(Locacao locacao);
     }
 }
