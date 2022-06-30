@@ -23,11 +23,9 @@ namespace SistemaLocacao.Data.Mapping
 
             builder.HasIndex(x => x.Id, "Locacao_PRIMARY");
 
-            builder.HasIndex(x => x.ClienteId, "FK_Cliente_idx")
-                .IsUnique();
+            builder.HasIndex(x => x.ClienteId, "FK_Cliente_idx");
 
-            builder.HasIndex(x => x.FilmeId, "FK_Filme_idx")
-                .IsUnique();
+            builder.HasIndex(x => x.FilmeId, "FK_Filme_idx");
         }
     }
 }

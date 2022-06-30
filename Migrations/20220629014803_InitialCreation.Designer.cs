@@ -113,11 +113,9 @@ namespace SistemaLocacao.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex(new[] { "ClienteId" }, "FK_Cliente_idx")
-                        .IsUnique();
+                    b.HasIndex(new[] { "ClienteId" }, "FK_Cliente_idx");
 
-                    b.HasIndex(new[] { "FilmeId" }, "FK_Filme_idx")
-                        .IsUnique();
+                    b.HasIndex(new[] { "FilmeId" }, "FK_Filme_idx");
 
                     b.HasIndex(new[] { "Id" }, "Locacao_PRIMARY");
 

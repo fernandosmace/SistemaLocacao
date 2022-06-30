@@ -114,14 +114,12 @@ namespace SistemaLocacao.Migrations
             migrationBuilder.CreateIndex(
                 name: "FK_Cliente_idx",
                 table: "Locacoes",
-                column: "ClienteId",
-                unique: true);
+                column: "ClienteId");
 
             migrationBuilder.CreateIndex(
                 name: "FK_Filme_idx",
                 table: "Locacoes",
-                column: "FilmeId",
-                unique: true);
+                column: "FilmeId");
 
             migrationBuilder.CreateIndex(
                 name: "Locacao_PRIMARY",
