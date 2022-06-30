@@ -17,17 +17,17 @@ namespace SistemaLocacao.Repositories
         {
             return await Task.FromResult(await _contexto
                                         .Locacoes
-                                        .Include("Clientes")
-                                        .Include("Filmes")
+                                        .Include(x => x.Cliente)
+                                        .Include(x => x.Filme)
                                         .FirstOrDefaultAsync(x => x.Id == idLocacao));
         }
 
-        public async Task<List<Locacao>> GetAll()
+        public async Task<List<Locacao>> Get()
         {
             return await Task.FromResult(await _contexto
                                         .Locacoes
-                                        .Include("Clientes")
-                                        .Include("Filmes")
+                                        .Include(x => x.Cliente)
+                                        .Include(x => x.Filme)
                                         .AsNoTracking()
                                         .ToListAsync());
         }
