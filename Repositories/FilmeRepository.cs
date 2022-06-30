@@ -1,0 +1,53 @@
+using Microsoft.EntityFrameworkCore;
+using SistemaLocacao.Data;
+using SistemaLocacao.DTO.Input;
+using SistemaLocacao.Models;
+
+namespace SistemaLocacao.Repositories
+{
+    public class FilmeRepository : IFilmeRepository
+    {
+        private readonly SistemaLocacaoDbContext _contexto;
+
+        public FilmeRepository(SistemaLocacaoDbContext contexto)
+        {
+            _contexto = contexto;
+        }
+
+        public async Task<Filme> Get(int idFilme)
+        {
+            return await Task.FromResult(await _contexto
+                                        .Filmes
+                                        .FirstOrDefaultAsync(x => x.Id == idFilme));
+        }
+
+        public async Task<List<Filme>> GetAll()
+        {
+            return await Task.FromResult(await _contexto
+                                        .Filmes
+                                        .AsNoTracking()
+                                        .ToListAsync());
+        }
+
+        public async Task<Filme> Create(Filme filme)
+        {
+            await _contexto.Filmes.AddAsync(filme);
+            await _contexto.SaveChangesAsync();
+            return await Task.FromResult(filme);
+        }
+
+        public async Task Update(Filme filme)
+        {
+            var filmeExists = _contexto.Filmes.SingleOrDefault(x => x.Id == filme.Id);
+            _contexto.Filmes.Update(filmeExists);
+            await _contexto.SaveChangesAsync();
+        }
+
+        public async Task Delete(Filme filme)
+        {
+            var filmeExists = _contexto.Filmes.Find(filme.Id);
+            _contexto.Filmes.Remove(filmeExists);
+            await _contexto.SaveChangesAsync();
+        }
+    }
+}
