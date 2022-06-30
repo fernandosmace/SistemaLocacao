@@ -111,5 +111,32 @@ namespace SistemaLocacao.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError);
             }
         }
+
+        /// <summary>
+        /// Excluir um Filme
+        /// </summary>
+        /// <param name="idFilme"></param>
+        /// <response code="200">Filme excluído com sucesso</response>
+        /// <response code="400">Requisição inválida</response>
+        /// <response code="404">Filme não encontrado</response>
+        /// <response code="500">Erro interno</response>
+        [HttpDelete("{idFilme}")]
+        public async Task<IActionResult> Delete([FromRoute] int idFilme)
+        {
+            try
+            {
+                var filme = await _filmeRepository.Get(idFilme);
+                if (filme == null)
+                    return NotFound("Filme não encontrado");
+
+                _filmeRepository.Delete(filme);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+        }
     }
 }
