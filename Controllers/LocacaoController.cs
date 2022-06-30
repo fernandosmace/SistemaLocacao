@@ -98,5 +98,32 @@ namespace SistemaLocacao.Controllers
 
             return Ok(locacoesOutput);
         }
+
+        /// <summary>
+        /// Excluir uma Locação
+        /// </summary>
+        /// <param name="idLocacao"></param>
+        /// <response code="200">Locação excluída com sucesso</response>
+        /// <response code="400">Requisição inválida</response>
+        /// <response code="404">Locação não encontrada</response>
+        /// <response code="500">Erro interno</response>
+        [HttpDelete("{idLocacao}")]
+        public async Task<IActionResult> Delete([FromRoute] int idLocacao)
+        {
+            try
+            {
+                var locacao = await _locacaoRepository.Get(idLocacao);
+                if (locacao == null)
+                    return NotFound("Locação não encontrado");
+
+                _locacaoRepository.Delete(locacao);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+        }
     }
 }
