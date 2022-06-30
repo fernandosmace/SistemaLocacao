@@ -42,5 +42,42 @@ namespace SistemaLocacao.Controllers
 
             return Ok(filme);
         }
+
+        /// <summary>
+        /// Inserir um novo Filme
+        /// </summary>
+        /// <param name="filmeInput"></param>
+        /// <response code="200">Filme inserido com sucesso</response>
+        /// <response code="202">Filme já cadastrado</response>
+        /// <response code="400">Requisição inválida</response>
+        /// <response code="500">Erro interno</response>
+        [HttpPost]
+        public async Task<IActionResult> Create([FromBody] FilmeInput filmeInput)
+        {
+            try
+            {
+                var filmeCreated = await _filmeRepository.Create(new Models.Filme
+                {
+                    Titulo = filmeInput.Titulo,
+                    ClassificacaoIndicativa = filmeInput.ClassificacaoIndicativa,
+                    Lancamento = filmeInput.Lancamento
+                });
+
+                var filmeOutput = new FilmeOutput
+                {
+                    Id = filmeCreated.Id,
+                    Titulo = filmeCreated.Titulo,
+                    ClassificacaoIndicativa = filmeCreated.ClassificacaoIndicativa,
+                    Lancamento = filmeCreated.Lancamento
+                };
+
+                return Ok(filmeOutput);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+        }
     }
 }
