@@ -31,9 +31,9 @@ builder.Services.AddSwaggerGen(options =>
     options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
 });
 
-builder.Services.AddTransient<IClienteRepository, ClienteRepository>();
-builder.Services.AddTransient<IFilmeRepository, FilmeRepository>();
-builder.Services.AddTransient<ILocacaoRepository, LocacaoRepository>();
+builder.Services.AddScoped<IClienteRepository, ClienteRepository>();
+builder.Services.AddScoped<IFilmeRepository, FilmeRepository>();
+builder.Services.AddScoped<ILocacaoRepository, LocacaoRepository>();
 
 var app = builder.Build();
 
