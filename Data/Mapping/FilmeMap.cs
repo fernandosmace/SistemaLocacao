@@ -31,13 +31,12 @@ namespace SistemaLocacao.Data.Mapping
                 .HasColumnName("Lancamento")
                 .HasColumnType("TINYINT");
 
-            builder.HasIndex(x => x.Id, "Filme_PRIMARY");
-
-            builder.HasIndex(x => x.Lancamento, "idx_Lancamento")
+            builder.HasIndex(x => x.Id, "Filme_PRIMARY")
                 .IsUnique();
 
-            builder.HasIndex(x => x.Titulo, "idx_Titulo")
-                .IsUnique();
+            builder.HasIndex(x => x.Lancamento, "idx_Lancamento");
+
+            builder.HasIndex(x => x.Titulo, "idx_Titulo");
         }
     }
 }

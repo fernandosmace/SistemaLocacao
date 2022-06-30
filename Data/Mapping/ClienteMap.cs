@@ -27,13 +27,13 @@ namespace SistemaLocacao.Data.Mapping
                 .HasColumnType("VARCHAR")
                 .HasMaxLength(11);
 
-            builder.HasIndex(x => x.Id, "Cliente_PRIMARY");
+            builder.HasIndex(x => x.Id, "Cliente_PRIMARY")
+                .IsUnique();
 
             builder.HasIndex(x => x.CPF, "idx_CPF")
                 .IsUnique();
 
-            builder.HasIndex(x => x.Nome, "idx_NOME")
-                .IsUnique();
+            builder.HasIndex(x => x.Nome, "idx_NOME");
         }
     }
 }
