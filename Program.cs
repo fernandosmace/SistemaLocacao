@@ -2,6 +2,7 @@ using System.Reflection;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using SistemaLocacao.Data;
+using SistemaLocacao.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,6 +18,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>
 {
+    options.OrderActionsBy((apiDesc) => $"{apiDesc.RelativePath}");
     options.SwaggerDoc("v1", new OpenApiInfo
     {
         Version = "v1",
