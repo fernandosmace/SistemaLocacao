@@ -33,6 +33,7 @@ builder.Services.AddSwaggerGen(options =>
 
 builder.Services.AddTransient<IClienteRepository, ClienteRepository>();
 builder.Services.AddTransient<IFilmeRepository, FilmeRepository>();
+builder.Services.AddTransient<ILocacaoRepository, LocacaoRepository>();
 
 var app = builder.Build();
 
