@@ -39,18 +39,22 @@ namespace SistemaLocacao.Repositories
         public async Task<Cliente> Create(Cliente cliente)
         {
             await _contexto.Clientes.AddAsync(cliente);
-            _contexto.SaveChanges();
+            await _contexto.SaveChangesAsync();
             return await Task.FromResult(cliente);
         }
 
-        public Task<Cliente> Update(Cliente cliente)
+        public async Task Update(Cliente cliente)
         {
-            throw new NotImplementedException();
+            var clientExists = _contexto.Clientes.SingleOrDefault(x => x.Id == cliente.Id);
+            _contexto.Clientes.Update(clientExists);
+            await _contexto.SaveChangesAsync();
         }
 
-        public Task<int> Delete(int idCliente)
+        public async Task Delete(Cliente cliente)
         {
-            throw new NotImplementedException();
+            var clienteExists = _contexto.Clientes.Find(cliente.Id);
+            _contexto.Clientes.Remove(clienteExists);
+            await _contexto.SaveChangesAsync();
         }
     }
 }
