@@ -32,7 +32,7 @@ namespace SistemaLocacao.Repositories
         public async Task<Filme> Create(Filme filme)
         {
             await _contexto.Filmes.AddAsync(filme);
-            await _contexto.SaveChangesAsync();
+            _contexto.SaveChanges();
             return await Task.FromResult(filme);
         }
 
@@ -40,14 +40,14 @@ namespace SistemaLocacao.Repositories
         {
             var filmeExists = _contexto.Filmes.SingleOrDefault(x => x.Id == filme.Id);
             _contexto.Filmes.Update(filmeExists);
-            await _contexto.SaveChangesAsync();
+            _contexto.SaveChanges();
         }
 
         public async Task Delete(Filme filme)
         {
             var filmeExists = _contexto.Filmes.Find(filme.Id);
             _contexto.Filmes.Remove(filmeExists);
-            await _contexto.SaveChangesAsync();
+            _contexto.SaveChanges();
         }
     }
 }

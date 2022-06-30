@@ -35,7 +35,7 @@ namespace SistemaLocacao.Repositories
         public async Task<Locacao> Create(Locacao locacao)
         {
             await _contexto.Locacoes.AddAsync(locacao);
-            await _contexto.SaveChangesAsync();
+            _contexto.SaveChanges();
             return await Task.FromResult(locacao);
         }
 
@@ -43,14 +43,14 @@ namespace SistemaLocacao.Repositories
         {
             var locacaoExists = _contexto.Locacoes.SingleOrDefault(x => x.Id == locacao.Id);
             _contexto.Locacoes.Update(locacaoExists);
-            await _contexto.SaveChangesAsync();
+            _contexto.SaveChanges();
         }
 
         public async Task Delete(Locacao locacao)
         {
             var locacaoExists = _contexto.Locacoes.Find(locacao.Id);
             _contexto.Locacoes.Remove(locacaoExists);
-            await _contexto.SaveChangesAsync();
+            _contexto.SaveChanges();
         }
     }
 }
