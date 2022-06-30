@@ -71,9 +71,12 @@ namespace SistemaLocacao.Controllers
         {
             try
             {
+                if (!Util.ValidaCPF.IsCpf(clienteInput.CPF))
+                    return Ok("Cliente não cadastrado. O CPF informado é inválido");
+
                 var cliente = await _clienteRepository.Get(clienteInput.CPF);
                 if (cliente != null)
-                    return Accepted("Cliente não cadastrado. O CPF informado já está em uso por outro Cliente");
+                    return Ok("Cliente não cadastrado. O CPF informado já está em uso por outro Cliente");
 
                 var clienteCreated = await _clienteRepository.Create(new Cliente
                 {
@@ -112,6 +115,9 @@ namespace SistemaLocacao.Controllers
         {
             try
             {
+                if (!Util.ValidaCPF.IsCpf(clienteInput.CPF))
+                    return Ok("Cliente não cadastrado. O CPF informado é inválido");
+
                 var cliente = await _clienteRepository.Get(clienteInput.Id);
                 if (cliente == null)
                     return NotFound("Cliente não encontrado");
