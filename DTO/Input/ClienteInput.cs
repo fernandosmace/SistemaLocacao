@@ -9,7 +9,7 @@ namespace SistemaLocacao.DTO.Input
         public string Nome { get; set; }
 
         [Required]
-        [MaxLength(11)]
+        [MaxLength(11, ErrorMessage = "CPF deve conter no mmáximo 11 caracteres.")]
         public string CPF { get; set; }
 
         [Required]
