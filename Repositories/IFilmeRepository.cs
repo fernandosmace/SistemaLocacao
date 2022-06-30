@@ -7,8 +7,8 @@ namespace SistemaLocacao.Repositories
     {
         public Task<Filme> Get(int idFilme);
         public Task<List<Filme>> GetAll();
-        public Task<Filme> Create(FilmeInput filmeInput);
-        public Task Update(FilmeInput filmeInput);
+        public Task<Filme> Create(Filme filme);
+        public Task Update(Filme filme);
         public Task Delete(int idFilme);
     }
 }
