@@ -1,10 +1,7 @@
 import React from "react";
 import "antd/dist/antd.css";
 import "./Header.css";
-import { PageHeader, Button, Anchor } from "antd";
-
-const { Link } = Anchor;
-
+import { PageHeader, Button } from "antd";
 const Header = () => (
   <PageHeader
     className="site-page-header"
@@ -12,16 +9,16 @@ const Header = () => (
     subTitle="Gestão de locações de filmes"
     extra={[
       <Button key="4">
-        <a href="/Counter">Filmes</a>
+        <a href="/filmes">Filmes</a>
       </Button>,
       <Button key="3">
-        <a href="/Counter">Clientes</a>
+        <a href="/clientes">Clientes</a>
       </Button>,
       <Button key="2">
-        <a href="/Counter">Relatórios</a>
+        <a href="/relatorios">Relatórios</a>
       </Button>,
       <Button key="1" type="primary">
-        <a href="/Counter">Locações</a>
+        <a href="/locacaoes">Locações</a>
       </Button>,
     ]}
   />
