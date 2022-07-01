@@ -2,7 +2,7 @@ export async function getCliente(idCliente) {
   const response = await fetch(
     `https://localhost:7273/api/v1/Cliente/${idCliente}`
   );
-  return await response.json();
+  return await response;
 }
 
 export async function getAllClientes() {
@@ -16,7 +16,7 @@ export async function createCliente(data) {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data),
   });
-  return await response.json();
+  return await response;
 }
 
 export async function updateCliente(data) {
@@ -25,7 +25,8 @@ export async function updateCliente(data) {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data),
   });
-  return await response.json();
+
+  return response;
 }
 
 export async function deleteCliente(idCliente) {
@@ -36,5 +37,5 @@ export async function deleteCliente(idCliente) {
       headers: { "Content-Type": "application/json" },
     }
   );
-  return await response.json();
+  return response;
 }
