@@ -10,7 +10,7 @@ using SistemaLocacao.Repositories;
 
 namespace SistemaLocacao.Controllers
 {
-    [Route("[controller]")]
+    [Route("api/v1/[controller]")]
     [ApiController]
     public class LocacaoController : Controller
     {
