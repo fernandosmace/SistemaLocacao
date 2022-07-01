@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Container } from "reactstrap";
-import { NavMenu } from "./NavMenu";
 import Header from "./Header/Header";
+import { Space } from "antd";
 
 export class Layout extends Component {
   static displayName = Layout.name;
@@ -9,8 +9,16 @@ export class Layout extends Component {
   render() {
     return (
       <div>
-        <Header />
-        <Container>{this.props.children}</Container>
+        <Space
+          direction="vertical"
+          size="middle"
+          style={{
+            display: "flex",
+          }}
+        >
+          <Header />
+          <Container>{this.props.children}</Container>
+        </Space>
       </div>
     );
   }
