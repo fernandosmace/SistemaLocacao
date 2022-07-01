@@ -1,9 +1,11 @@
 import { Counter } from "./components/Counter";
 import { FetchData } from "./components/FetchData";
 import { Home } from "./components/Home";
-import { CreateCliente } from "./components/Cliente/CreateCliente/CreateCliente";
+import { Clientes } from "./components/Cliente/Clientes";
+import { CreateCliente } from "./components/Cliente/CreateCliente";
+import { UpdateCliente } from "./components/Cliente/UpdateCliente";
 
-const AppRoutes = [
+export const AppRoutes = [
   {
     index: true,
     element: <Home />,
@@ -17,8 +19,16 @@ const AppRoutes = [
     element: <FetchData />,
   },
   {
+    path: "/clientes",
+    element: <Clientes />,
+  },
+  {
     path: "/create-cliente",
     element: <CreateCliente />,
+  },
+  {
+    path: "/update-cliente/:id",
+    element: <UpdateCliente />,
   },
 ];
 
