@@ -76,7 +76,8 @@ namespace SistemaLocacao.Controllers
         /// </summary>
         /// <param name="clienteInput"></param>
         /// <response code="200">Cliente inserido com sucesso</response>
-        /// <response code="202">Cliente já cadastrado</response>
+        /// <response code="422">CPF inválido</response>
+        /// <response code="422">Cliente já cadastrado</response>
         /// <response code="400">Requisição inválida</response>
         /// <response code="500">Erro interno</response>
         [HttpPost]
@@ -85,11 +86,11 @@ namespace SistemaLocacao.Controllers
             try
             {
                 if (!Util.ValidaCPF.IsCpf(clienteInput.CPF))
-                    return Ok("Cliente não cadastrado. O CPF informado é inválido");
+                    return StatusCode(StatusCodes.Status422UnprocessableEntity, "Cliente não cadastrado. O CPF informado é inválido");
 
                 var cliente = await _clienteRepository.Get(clienteInput.CPF);
                 if (cliente != null)
-                    return Ok("Cliente não cadastrado. O CPF informado já está em uso por outro Cliente");
+                    return StatusCode(StatusCodes.Status422UnprocessableEntity, "Cliente não cadastrado. O CPF informado já está em uso por outro Cliente");
 
                 var clienteCreated = await _clienteRepository.Create(new Cliente
                 {
@@ -121,6 +122,7 @@ namespace SistemaLocacao.Controllers
         /// <param name="clienteInput"></param>
         /// <response code="200">Cliente atualizado com sucesso</response>
         /// <response code="400">Requisição inválida</response>
+        /// <response code="422">CPF inválido</response>
         /// <response code="404">Cliente não encontrado</response>
         /// <response code="500">Erro interno</response>
         [HttpPatch]
@@ -129,7 +131,7 @@ namespace SistemaLocacao.Controllers
             try
             {
                 if (!Util.ValidaCPF.IsCpf(clienteInput.CPF))
-                    return Ok("Cliente não cadastrado. O CPF informado é inválido");
+                    return StatusCode(StatusCodes.Status422UnprocessableEntity, "Cliente não cadastrado. O CPF informado é inválido");
 
                 var cliente = await _clienteRepository.Get(clienteInput.Id);
                 if (cliente == null)
