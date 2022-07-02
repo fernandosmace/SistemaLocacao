@@ -7,7 +7,7 @@ export async function getFilme(idFilme) {
 
 export async function getAllFilmes() {
   const response = await fetch("https://localhost:7273/api/v1/Filme");
-  return await response.json();
+  return await response;
 }
 
 export async function createFilme(data) {
