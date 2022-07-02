@@ -1,65 +1,19 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 import "antd/dist/antd.css";
 import { Space, Table, Button } from "antd";
 import {
   getAllClientes,
-  createCliente,
   deleteCliente,
 } from "../../../services/ClienteService";
 import swal from "sweetalert";
 import moment from "moment";
 
-const columns = [
-  {
-    title: "Id",
-    dataIndex: "id",
-    key: "id",
-  },
-  {
-    title: "Nome",
-    dataIndex: "nome",
-    key: "id",
-  },
-  {
-    title: "CPF",
-    dataIndex: "cpf",
-    key: "id",
-  },
-  {
-    title: "Data de Nascimento",
-    dataIndex: "dataNascimento",
-    key: "id",
-  },
-  {
-    title: "",
-    key: "action",
-    render: (_, record) => (
-      <Space size="middle">
-        <Button type="default" href={`/update-cliente/${record.id}`}>
-          Atualizar
-        </Button>
-        <Button type="primary" danger onClick={() => deleteCliente(record.id)}>
-          Excluir
-        </Button>
-      </Space>
-    ),
-  },
-];
+export const DisplayBoard = () => {
+  const [clientes, setClientes] = useState([]);
 
-export class DisplayBoard extends Component {
-  state = {
-    cliente: {},
-    clientes: [],
-    numberOfClientes: 0,
-  };
-
-  componentWillMount = () => {
-    this.getAllClientes();
-  };
-
-  getAllClientes = () => {
-    getAllClientes().then((clientes) => {
-      clientes.map((item) => {
+  useEffect(() => {
+    getAllClientes().then((clientesResponse) => {
+      clientesResponse.map((item) => {
         item.key = item.id;
         item.cpf = item.cpf.replace(
           /(\d{3})(\d{3})(\d{3})(\d{2})/,
@@ -68,43 +22,84 @@ export class DisplayBoard extends Component {
         item.dataNascimento = moment(item.dataNascimento).format("DD/MM/YYYY");
         return item;
       });
-      this.setState({ clientes: clientes, numberOfClientes: clientes.length });
+      setClientes(clientesResponse);
     });
-  };
+  });
 
-  createCliente = () => {
-    createCliente(this.state.cliente).then((response) => {
-      console.log(response);
-      this.setState({ numberOfClientes: this.state.numberOfClientes + 1 });
-    });
-  };
+  const deleteClienteHandler = (idCliente) => {
+    swal("Tem certeza que deseja excluir este cliente?", {
+      buttons: {
+        cancel: "Não",
+        confirm: {
+          text: "Sim",
+          value: 1,
+        },
+      },
+    }).then((value) => {
+      switch (value) {
+        case 1:
+          deleteCliente(idCliente).then((response) => {
+            if (response.status !== 200) {
+              let getError = response.text();
 
-  refreshPage() {
-    window.location.reload();
-  }
+              getError.then((value) => {
+                console.log("teste3");
+                swal("Ocorreu um erro ao excluir o cliente.", value, "error");
+              });
+            } else {
+              swal("Cliente excluído com sucesso!", "", "success");
+            }
+          });
+          break;
 
-  deleteCliente = (idCliente) => {
-    deleteCliente(idCliente).then((response) => {
-      this.refreshPage();
-      console.log(idCliente);
-      if (response.status !== 200) {
-        console.log("teste2");
-        let getError = response.text();
-
-        getError.then((value) => {
-          console.log("teste3");
-          swal("Ocorreu um erro ao excluir o cliente.", value, "error");
-        });
-      } else {
-        swal("Cliente excluído com sucesso!", "", "success");
-        this.refreshPage();
+        default:
+          break;
       }
     });
   };
 
-  render() {
-    return <Table columns={columns} dataSource={this.state.clientes} />;
-  }
-}
+  const columns = [
+    {
+      title: "Id",
+      dataIndex: "id",
+      key: "id",
+    },
+    {
+      title: "Nome",
+      dataIndex: "nome",
+      key: "id",
+    },
+    {
+      title: "CPF",
+      dataIndex: "cpf",
+      key: "id",
+    },
+    {
+      title: "Data de Nascimento",
+      dataIndex: "dataNascimento",
+      key: "id",
+    },
+    {
+      title: "",
+      key: "action",
+      render: (_, record) => (
+        <Space size="middle">
+          <Button type="default" href={`/update-cliente/${record.id}`}>
+            Atualizar
+          </Button>
+          <Button
+            type="primary"
+            danger
+            onClick={() => deleteClienteHandler(record.id)}
+          >
+            Excluir
+          </Button>
+        </Space>
+      ),
+    },
+  ];
+
+  return <Table columns={columns} dataSource={clientes} />;
+};
 
 export default DisplayBoard;
