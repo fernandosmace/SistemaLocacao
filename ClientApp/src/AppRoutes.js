@@ -6,6 +6,7 @@ import { CreateCliente } from "./components/Cliente/CreateCliente";
 import { UpdateCliente } from "./components/Cliente/UpdateCliente";
 import { Filmes } from "./components/Filme/Filmes";
 import { CreateFilme } from "./components/Filme/CreateFilme";
+import { UpdateFilme } from "./components/Filme/UpdateFilme";
 
 export const AppRoutes = [
   {
@@ -31,6 +32,10 @@ export const AppRoutes = [
   {
     path: "/create-filme",
     element: <CreateFilme />,
+  },
+  {
+    path: "/update-filme/:id",
+    element: <UpdateFilme />,
   },
 ];
 
