@@ -7,7 +7,7 @@ export async function getCliente(idCliente) {
 
 export async function getAllClientes() {
   const response = await fetch("https://localhost:7273/api/v1/Cliente");
-  return await response.json();
+  return await response;
 }
 
 export async function createCliente(data) {

@@ -12,17 +12,30 @@ export const DisplayBoard = () => {
   const [clientes, setClientes] = useState([]);
 
   useEffect(() => {
-    getAllClientes().then((clientesResponse) => {
-      clientesResponse.map((item) => {
-        item.key = item.id;
-        item.cpf = item.cpf.replace(
-          /(\d{3})(\d{3})(\d{3})(\d{2})/,
-          "$1.$2.$3-$4"
+    getAllClientes().then((response) => {
+      if (response.status !== 200) {
+        swal(
+          "Ocorreu um erro ao buscar os cliente.",
+          "Contate o administrador do sistema.",
+          "error"
         );
-        item.dataNascimento = moment(item.dataNascimento).format("DD/MM/YYYY");
-        return item;
-      });
-      setClientes(clientesResponse);
+      } else {
+        var json = response.json();
+        json.then((clientes) => {
+          clientes.map((item) => {
+            item.key = item.id;
+            item.cpf = item.cpf.replace(
+              /(\d{3})(\d{3})(\d{3})(\d{2})/,
+              "$1.$2.$3-$4"
+            );
+            item.dataNascimento = moment(item.dataNascimento).format(
+              "DD/MM/YYYY"
+            );
+            return item;
+          });
+          setClientes(clientes);
+        });
+      }
     });
   });
 
