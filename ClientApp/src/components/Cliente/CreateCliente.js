@@ -1,6 +1,7 @@
 import { Typography, Button, DatePicker, Form, Input, Alert } from "antd";
 import { createCliente } from "../../services/ClienteService";
 import swal from "sweetalert";
+import { MaskedInput } from "antd-mask-input";
 const { Title } = Typography;
 
 export const CreateCliente = () => {
@@ -13,9 +14,10 @@ export const CreateCliente = () => {
   const onFinish = async (values) => {
     var cliente = {
       nome: values.nome,
-      cpf: values.cpf,
+      cpf: values.cpf.replace(/\D/g, ""),
       dataNascimento: values.dataNascimento,
     };
+
     createCliente(cliente).then((response) => {
       if (response.status !== 200) {
         let getError = response.text();
@@ -88,17 +90,9 @@ export const CreateCliente = () => {
               required: true,
               message: "Informe o CPF do Cliente.",
             },
-            {
-              max: 11,
-              message: "O CPF deve conter até 11 caracteres.",
-            },
-            {
-              pattern: /^[0-9]+$/,
-              message: "O CPF somente deve conter números.",
-            },
           ]}
         >
-          <Input />
+          <MaskedInput mask={"000.000.000-00"} />
         </Form.Item>
 
         <Form.Item

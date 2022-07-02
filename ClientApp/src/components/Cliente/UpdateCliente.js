@@ -46,13 +46,10 @@ export const UpdateCliente = () => {
     var cliente = {
       id: values.id,
       nome: values.nome,
-      cpf: values.cpf,
+      cpf: values.cpf.replace(/\D/g, ""),
       dataNascimento: values.dataNascimento,
     };
 
-    cliente.cpf = cliente.cpf.replace(/\D/g, "");
-
-    console.log(cliente.cpf);
     updateCliente(cliente).then((response) => {
       if (response.status !== 200) {
         let getError = response.text();
