@@ -121,7 +121,7 @@ export const UpdateCliente = () => {
               message: "Informe o nome do Cliente.",
             },
             {
-              pattern: /^[a-zA-Z0-9]+$/,
+              pattern: /^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ0-9 ]+$/,
               message: "O nome somente deve conter letras e números.",
             },
             {
