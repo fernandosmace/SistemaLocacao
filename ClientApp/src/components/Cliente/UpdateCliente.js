@@ -1,7 +1,10 @@
-import React, { useEffect, useState, useParams } from "react";
+import React, { useEffect } from "react";
 import { Typography, Button, DatePicker, Form, Input, Alert } from "antd";
 import { getCliente, updateCliente } from "../../services/ClienteService";
+import { useParams } from "react-router-dom";
 import swal from "sweetalert";
+import moment from "moment";
+import { MaskedInput } from "antd-mask-input";
 const { Title } = Typography;
 
 export const UpdateCliente = () => {
@@ -11,18 +14,30 @@ export const UpdateCliente = () => {
     UpdateClienteForm.resetFields();
   };
 
-  var idCliente = null;
+  const SetForm = (json) => {
+    UpdateClienteForm.setFieldsValue({
+      id: json.id,
+      nome: json.nome,
+      cpf: json.cpf,
+      dataNascimento: moment(json.dataNascimento),
+    });
+  };
+
+  const { id } = useParams();
+  let idCliente = id;
 
   useEffect(() => {
     getCliente(idCliente).then((response) => {
+      let getText = response.text();
       if (response.status !== 200) {
-        let getError = response.text();
-
-        getError.then((value) => {
-          swal("Ocorreu um erro ao atualizar o cliente.", value, "error");
+        getText.then((value) => {
+          swal("Ocorreu um erro ao buscar o cliente.", value, "error");
         });
       } else {
-        console.log(response.json());
+        getText.then((value) => {
+          const json = JSON.parse(value);
+          SetForm(json);
+        });
       }
     });
   }, []);
@@ -35,6 +50,9 @@ export const UpdateCliente = () => {
       dataNascimento: values.dataNascimento,
     };
 
+    cliente.cpf = cliente.cpf.replace(/\D/g, "");
+
+    console.log(cliente.cpf);
     updateCliente(cliente).then((response) => {
       if (response.status !== 200) {
         let getError = response.text();
@@ -95,7 +113,7 @@ export const UpdateCliente = () => {
             },
           ]}
         >
-          <Input />
+          <Input disabled />
         </Form.Item>
         <Form.Item
           label="Nome"
@@ -126,17 +144,9 @@ export const UpdateCliente = () => {
               required: true,
               message: "Informe o CPF do Cliente.",
             },
-            {
-              max: 11,
-              message: "O CPF deve conter até 11 caracteres.",
-            },
-            {
-              pattern: /^[0-9]+$/,
-              message: "O CPF somente deve conter números.",
-            },
           ]}
         >
-          <Input />
+          <MaskedInput mask={"000.000.000-00"} />
         </Form.Item>
 
         <Form.Item
