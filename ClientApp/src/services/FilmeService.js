@@ -2,7 +2,7 @@ export async function getFilme(idFilme) {
   const response = await fetch(
     `https://localhost:7273/api/v1/Filme/${idFilme}`
   );
-  return await response.json();
+  return await response;
 }
 
 export async function getAllFilmes() {
@@ -16,7 +16,7 @@ export async function createFilme(data) {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data),
   });
-  return await response.json();
+  return await response;
 }
 
 export async function updateFilme(data) {
@@ -25,7 +25,7 @@ export async function updateFilme(data) {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data),
   });
-  return await response.json();
+  return await response;
 }
 
 export async function deleteFilme(idFilme) {
@@ -36,5 +36,5 @@ export async function deleteFilme(idFilme) {
       headers: { "Content-Type": "application/json" },
     }
   );
-  return await response.json();
+  return await response;
 }
