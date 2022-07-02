@@ -14,7 +14,7 @@ export class Filmes extends Component {
       >
         <div className="btnAdd">
           <Button type="primary" href="/create-filme">
-            Adicionar Filmes
+            Adicionar Filme
           </Button>
         </div>
         <DisplayBoard></DisplayBoard>

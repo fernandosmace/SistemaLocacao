@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "antd/dist/antd.css";
-import { Space, Table, Button } from "antd";
+import { Space, Table } from "antd";
+import { EditTwoTone, DeleteTwoTone } from "@ant-design/icons";
 import {
   getAllClientes,
   deleteCliente,
@@ -97,16 +98,15 @@ export const DisplayBoard = () => {
       key: "action",
       render: (_, record) => (
         <Space size="middle">
-          <Button type="default" href={`/update-cliente/${record.id}`}>
-            Atualizar
-          </Button>
-          <Button
-            type="primary"
-            danger
-            onClick={() => deleteClienteHandler(record.id)}
-          >
-            Excluir
-          </Button>
+          <a href={`/update-cliente/${record.id}`}>
+            <EditTwoTone style={{ fontSize: "1.5em" }} />
+          </a>
+          <a onClick={() => deleteClienteHandler(record.id)}>
+            <DeleteTwoTone
+              style={{ fontSize: "1.5em" }}
+              twoToneColor="#eb2f96"
+            />
+          </a>
         </Space>
       ),
     },
