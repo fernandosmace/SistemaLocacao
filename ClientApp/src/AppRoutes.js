@@ -1,5 +1,3 @@
-import { Counter } from "./components/Counter";
-import { FetchData } from "./components/FetchData";
 import { Home } from "./components/Home";
 import { Clientes } from "./components/Cliente/Clientes";
 import { CreateCliente } from "./components/Cliente/CreateCliente";
