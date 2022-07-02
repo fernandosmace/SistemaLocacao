@@ -6,6 +6,8 @@ import { Filmes } from "./components/Filme/Filmes";
 import { CreateFilme } from "./components/Filme/CreateFilme";
 import { UpdateFilme } from "./components/Filme/UpdateFilme";
 import { Locacoes } from "./components/Locacao/Locacoes";
+import { CreateLocacao } from "./components/Locacao/CreateLocacao";
+import { UpdateLocacao } from "./components/Locacao/UpdateLocacao";
 
 export const AppRoutes = [
   {
@@ -39,6 +41,14 @@ export const AppRoutes = [
   {
     path: "/locacoes",
     element: <Locacoes />,
+  },
+  {
+    path: "/create-locacao",
+    element: <CreateLocacao />,
+  },
+  {
+    path: "/update-locacao/:id",
+    element: <UpdateLocacao />,
   },
 ];
 
