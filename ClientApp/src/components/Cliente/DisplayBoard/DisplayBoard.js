@@ -99,7 +99,7 @@ export const DisplayBoard = () => {
     },
   ];
 
-  return <Table columns={columns} dataSource={clientes} />;
+  return <Table columns={columns} dataSource={clientes} pagination={false} />;
 };
 
 export default DisplayBoard;
