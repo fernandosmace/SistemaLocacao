@@ -18,7 +18,7 @@ const Header = () => (
         <a href="/relatorios">Relatórios</a>
       </Button>,
       <Button key="1" type="primary">
-        <a href="/locacaoes">Locações</a>
+        <a href="/locacoes">Locações</a>
       </Button>,
     ]}
   />

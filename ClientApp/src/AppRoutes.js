@@ -5,6 +5,7 @@ import { UpdateCliente } from "./components/Cliente/UpdateCliente";
 import { Filmes } from "./components/Filme/Filmes";
 import { CreateFilme } from "./components/Filme/CreateFilme";
 import { UpdateFilme } from "./components/Filme/UpdateFilme";
+import { Locacoes } from "./components/Locacao/Locacoes";
 
 export const AppRoutes = [
   {
@@ -34,6 +35,10 @@ export const AppRoutes = [
   {
     path: "/update-filme/:id",
     element: <UpdateFilme />,
+  },
+  {
+    path: "/locacoes",
+    element: <Locacoes />,
   },
 ];
 
