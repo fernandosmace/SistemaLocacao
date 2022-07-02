@@ -17,7 +17,7 @@ export class Clientes extends Component {
             Adicionar Cliente
           </Button>
         </div>
-        <DisplayBoard></DisplayBoard>;
+        <DisplayBoard></DisplayBoard>
       </Space>
     );
   }
