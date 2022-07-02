@@ -12,11 +12,9 @@ namespace SistemaLocacao.DTO.Input
         public string Titulo { get; set; }
 
         [Required]
-        [MaxLength(2)]
         public int ClassificacaoIndicativa { get; set; }
 
         [Required]
-        [MaxLength(1)]
         public byte Lancamento { get; set; }
     }
 }
