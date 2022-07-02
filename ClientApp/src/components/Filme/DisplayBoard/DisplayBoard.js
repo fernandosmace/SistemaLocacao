@@ -3,7 +3,6 @@ import "antd/dist/antd.css";
 import { Space, Table, Button } from "antd";
 import { getAllFilmes, deleteFilme } from "../../../services/FilmeService";
 import swal from "sweetalert";
-import moment from "moment";
 
 export const DisplayBoard = () => {
   const [filmes, setFilmes] = useState([]);
