@@ -2,12 +2,12 @@ export async function getLocacao(idLocacao) {
   const response = await fetch(
     `https://localhost:7273/api/v1/Locacao/${idLocacao}`
   );
-  return await response.json();
+  return await response;
 }
 
-export async function getAllLocacaos() {
+export async function getAllLocacoes() {
   const response = await fetch("https://localhost:7273/api/v1/Locacao");
-  return await response.json();
+  return await response;
 }
 
 export async function createLocacao(data) {
@@ -16,7 +16,7 @@ export async function createLocacao(data) {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data),
   });
-  return await response.json();
+  return await response;
 }
 
 export async function updateLocacao(data) {
@@ -25,7 +25,7 @@ export async function updateLocacao(data) {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data),
   });
-  return await response.json();
+  return await response;
 }
 
 export async function deleteLocacao(idLocacao) {
@@ -36,5 +36,5 @@ export async function deleteLocacao(idLocacao) {
       headers: { "Content-Type": "application/json" },
     }
   );
-  return await response.json();
+  return await response;
 }
