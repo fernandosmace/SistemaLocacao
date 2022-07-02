@@ -157,6 +157,7 @@ export const UpdateCliente = () => {
           ]}
         >
           <DatePicker
+            format={"DD/MM/YYYY"}
             style={{
               width: "30%",
             }}

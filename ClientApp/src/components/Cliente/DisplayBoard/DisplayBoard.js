@@ -6,6 +6,9 @@ import {
   createCliente,
   deleteCliente,
 } from "../../../services/ClienteService";
+import swal from "sweetalert";
+import moment from "moment";
+
 const columns = [
   {
     title: "Id",
@@ -58,6 +61,11 @@ export class DisplayBoard extends Component {
     getAllClientes().then((clientes) => {
       clientes.map((item) => {
         item.key = item.id;
+        item.cpf = item.cpf.replace(
+          /(\d{3})(\d{3})(\d{3})(\d{2})/,
+          "$1.$2.$3-$4"
+        );
+        item.dataNascimento = moment(item.dataNascimento).format("DD/MM/YYYY");
         return item;
       });
       this.setState({ clientes: clientes, numberOfClientes: clientes.length });
@@ -76,8 +84,22 @@ export class DisplayBoard extends Component {
   }
 
   deleteCliente = (idCliente) => {
-    deleteCliente(idCliente);
-    this.refreshPage();
+    deleteCliente(idCliente).then((response) => {
+      this.refreshPage();
+      console.log(idCliente);
+      if (response.status !== 200) {
+        console.log("teste2");
+        let getError = response.text();
+
+        getError.then((value) => {
+          console.log("teste3");
+          swal("Ocorreu um erro ao excluir o cliente.", value, "error");
+        });
+      } else {
+        swal("Cliente excluído com sucesso!", "", "success");
+        this.refreshPage();
+      }
+    });
   };
 
   render() {

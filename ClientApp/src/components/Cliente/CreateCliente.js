@@ -106,6 +106,7 @@ export const CreateCliente = () => {
           ]}
         >
           <DatePicker
+            format={"DD/MM/YYYY"}
             style={{
               width: "30%",
             }}
