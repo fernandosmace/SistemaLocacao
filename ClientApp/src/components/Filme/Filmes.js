@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import { DisplayBoard } from "./DisplayBoard/DisplayBoard";
 import { Button, Space } from "antd";
 
@@ -13,9 +14,9 @@ export class Filmes extends Component {
         }}
       >
         <div className="btnAdd">
-          <Button type="primary" href="/create-filme">
-            Adicionar Filme
-          </Button>
+          <Link to={"/create-filme"}>
+            <Button type="primary">Adicionar Filme</Button>
+          </Link>
         </div>
         <DisplayBoard></DisplayBoard>
       </Space>

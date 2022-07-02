@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "antd/dist/antd.css";
 import "./Header.css";
 import { PageHeader, Button } from "antd";
@@ -9,16 +10,16 @@ const Header = () => (
     subTitle="Gestão de locações de filmes"
     extra={[
       <Button key="4">
-        <a href="/filmes">Filmes</a>
+        <Link to="/filmes">Filmes</Link>
       </Button>,
       <Button key="3">
-        <a href="/clientes">Clientes</a>
+        <Link to="/clientes">Clientes</Link>
       </Button>,
       <Button key="2">
-        <a href="/relatorios">Relatórios</a>
+        <Link to="/relatorios">Relatórios</Link>
       </Button>,
       <Button key="1" type="primary">
-        <a href="/locacoes">Locações</a>
+        <Link to="/locacoes">Locações</Link>
       </Button>,
     ]}
   />

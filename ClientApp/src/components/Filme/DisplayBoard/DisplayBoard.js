@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import "antd/dist/antd.css";
 import { Space, Table } from "antd";
 import { EditTwoTone, DeleteTwoTone } from "@ant-design/icons";
@@ -87,15 +88,15 @@ export const DisplayBoard = () => {
       key: "action",
       render: (_, record) => (
         <Space size="middle">
-          <a href={`/update-filme/${record.id}`}>
+          <Link to={`/update-filme/${record.id}`}>
             <EditTwoTone style={{ fontSize: "1.5em" }} />
-          </a>
-          <a onClick={() => deleteFilmeHandler(record.id)}>
+          </Link>
+          <Link to={"#"} onClick={() => deleteFilmeHandler(record.id)}>
             <DeleteTwoTone
               style={{ fontSize: "1.5em" }}
               twoToneColor="#eb2f96"
             />
-          </a>
+          </Link>
         </Space>
       ),
     },

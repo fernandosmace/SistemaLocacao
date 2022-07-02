@@ -1,22 +1,24 @@
-import React, { Component } from 'react';
-import { Route, Routes } from 'react-router-dom';
-import AppRoutes from './AppRoutes';
-import { Layout } from './components/Layout';
-import './custom.css';
+import React, { Component } from "react";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { AppRoutes } from "./AppRoutes";
+import { Layout } from "./components/Layout";
+import "./custom.css";
+import { Clientes } from "./components/Cliente/Clientes";
+import { CreateCliente } from "./components/Cliente/CreateCliente";
+import { UpdateCliente } from "./components/Cliente/UpdateCliente";
+import { Filmes } from "./components/Filme/Filmes";
+import { CreateFilme } from "./components/Filme/CreateFilme";
+import { UpdateFilme } from "./components/Filme/UpdateFilme";
+import { Locacoes } from "./components/Locacao/Locacoes";
+import { CreateLocacao } from "./components/Locacao/CreateLocacao";
+import { UpdateLocacao } from "./components/Locacao/UpdateLocacao";
 
-export default class App extends Component {
-  static displayName = App.name;
+const App = () => {
+  return (
+    <Layout>
+      <AppRoutes />
+    </Layout>
+  );
+};
 
-  render() {
-    return (
-      <Layout>
-        <Routes>
-          {AppRoutes.map((route, index) => {
-            const { element, ...rest } = route;
-            return <Route key={index} {...rest} element={element} />;
-          })}
-        </Routes>
-      </Layout>
-    );
-  }
-}
+export default App;
