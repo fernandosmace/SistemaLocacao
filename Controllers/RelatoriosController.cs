@@ -23,12 +23,7 @@ namespace SistemaLocacao.Controllers
 
 
         /// <summary>
-        /// Retorna relatório de todos as locações que constam com atraso na devolução
-        /// </summary>
-        /// <response code="200">Retorna todos as locações atrasadas</response>
-        /// <response code="500">Erro interno</response>
-        [Route("/GetLocacoesAtrasadas")]
-        [HttpGet]
+        [HttpGet("/api/v1/[controller]/GetLocacoesAtrasadas")]
         public async Task<IActionResult> GetLocacoesAtrasadas()
         {
             var locacoesAtrasadas = await _relatoriosRepository.GetLocacoesAtrasadas();
@@ -41,8 +36,7 @@ namespace SistemaLocacao.Controllers
         /// </summary>
         /// <response code="200">Retorna todos os filmes que nunca foram alugados</response>
         /// <response code="500">Erro interno</response>
-        [Route("/GetFilmesNuncaAlugados")]
-        [HttpGet]
+        [HttpGet("/api/v1/[controller]/GetFilmesNuncaAlugados")]
         public async Task<IActionResult> GetFilmesNuncaAlugados()
         {
             var filmesNuncaAlugados = await _relatoriosRepository.GetFilmesNuncaAlugados();
@@ -55,8 +49,7 @@ namespace SistemaLocacao.Controllers
         /// </summary>
         /// <response code="200">Retorna os cinco filmes mais alugados no último ano</response>
         /// <response code="500">Erro interno</response>
-        [Route("/GetFilmesMaisAlugadosAno")]
-        [HttpGet]
+        [HttpGet("/api/v1/[controller]/GetFilmesMaisAlugadosAno")]
         public async Task<IActionResult> GetFilmesMaisAlugadosAno()
         {
             var filmesMaisAlugados = await _relatoriosRepository.GetFilmesMaisAlugadosAno();
@@ -69,8 +62,7 @@ namespace SistemaLocacao.Controllers
         /// </summary>
         /// <response code="200">Retorna os três filmes menos alugados na última semana</response>
         /// <response code="500">Erro interno</response>
-        [Route("/GetFilmesMenosAlugadosSemana")]
-        [HttpGet]
+        [HttpGet("/api/v1/[controller]/GetFilmesMenosAlugadosSemana")]
         public async Task<IActionResult> GetFilmesMenosAlugadosSemana()
         {
             var filmesMenosAlugados = await _relatoriosRepository.GetFilmesMenosAlugadosSemana();
@@ -83,8 +75,7 @@ namespace SistemaLocacao.Controllers
         /// </summary>
         /// <response code="200">Retorna o cliente que mais alugou filmes</response>
         /// <response code="500">Erro interno</response>
-        [Route("/GetSegundoMaiorCliente")]
-        [HttpGet]
+        [HttpGet("/api/v1/[controller]/GetSegundoMaiorCliente")]
         public async Task<IActionResult> GetSegundoMaiorCliente()
         {
             var segundoMelhorCliente = await _relatoriosRepository.GetSegundoMaiorCliente();
