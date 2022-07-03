@@ -10,10 +10,6 @@ const { Title } = Typography;
 export const UpdateCliente = () => {
   const [UpdateClienteForm] = Form.useForm();
 
-  const ResetForm = () => {
-    UpdateClienteForm.resetFields();
-  };
-
   const SetForm = (json) => {
     UpdateClienteForm.setFieldsValue({
       id: json.id,
@@ -59,7 +55,6 @@ export const UpdateCliente = () => {
         });
       } else {
         swal("Cliente atualizado com sucesso!", "", "success");
-        ResetForm();
       }
     });
   };

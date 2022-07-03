@@ -18,10 +18,6 @@ export const UpdateFilme = () => {
 
   const [UpdateFilmeForm] = Form.useForm();
 
-  const ResetForm = () => {
-    UpdateFilmeForm.resetFields();
-  };
-
   const SetForm = (json) => {
     UpdateFilmeForm.setFieldsValue({
       id: json.id,
@@ -84,7 +80,6 @@ export const UpdateFilme = () => {
         });
       } else {
         swal("Filme atualizado com sucesso!", "", "success");
-        ResetForm();
       }
     });
   };
