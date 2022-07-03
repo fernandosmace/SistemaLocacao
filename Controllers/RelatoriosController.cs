@@ -25,33 +25,8 @@ namespace SistemaLocacao.Controllers
         public async Task<IActionResult> GetLocacoesAtrasadas()
         {
             var locacoesAtrasadas = await _relatoriosRepository.GetLocacoesAtrasadas();
-            var locacoesAtrasadasOutput = new List<LocacaoOutput>();
 
-            foreach (var locacao in locacoesAtrasadas)
-            {
-                locacoesAtrasadasOutput.Add(new LocacaoOutput
-                {
-                    Id = locacao.Id,
-                    DataLocacao = locacao.DataLocacao,
-                    DataDevolucao = locacao.DataDevolucao,
-                    Cliente = new ClienteOutput
-                    {
-                        Id = locacao.Cliente.Id,
-                        Nome = locacao.Cliente.Nome,
-                        CPF = locacao.Cliente.CPF,
-                        DataNascimento = locacao.Cliente.DataNascimento
-                    },
-                    Filme = new FilmeOutput
-                    {
-                        Id = locacao.Filme.Id,
-                        Titulo = locacao.Filme.Titulo,
-                        ClassificacaoIndicativa = locacao.Filme.ClassificacaoIndicativa,
-                        Lancamento = locacao.Filme.Lancamento
-                    }
-                });
-            }
-
-            return Ok(locacoesAtrasadasOutput);
+            return Ok(locacoesAtrasadas);
         }
     }
 }
