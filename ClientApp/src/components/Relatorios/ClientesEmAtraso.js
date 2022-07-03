@@ -61,6 +61,8 @@ const ClientesEmAtraso = () => {
       title: "Dias de atraso",
       dataIndex: "diasDeAtraso",
       key: "diasDeAtraso",
+      sorter: (a, b) => a.diasDeAtraso > b.diasDeAtraso,
+      sortOrder: (a, b) => a.diasDeAtraso > b.diasDeAtraso,
     },
     {
       title: "",
