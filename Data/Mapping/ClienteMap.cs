@@ -31,9 +31,6 @@ namespace SistemaLocacao.Data.Mapping
                 .WithOne(x => x.Cliente)
                 .HasConstraintName("FK_Cliente_Locacao");
 
-            builder.HasIndex(x => x.Id, "Cliente_PRIMARY")
-                .IsUnique();
-
             builder.HasIndex(x => x.CPF, "idx_CPF")
                 .IsUnique();
 

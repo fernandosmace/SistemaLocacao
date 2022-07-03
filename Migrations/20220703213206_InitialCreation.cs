@@ -55,7 +55,7 @@ namespace SistemaLocacao.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     DataLocacao = table.Column<DateTime>(type: "DATETIME", nullable: false),
-                    DataDevolucao = table.Column<DateTime>(type: "DATETIME", nullable: false),
+                    DataDevolucao = table.Column<DateTime>(type: "DATETIME", nullable: true),
                     ClienteId = table.Column<int>(type: "int", nullable: false),
                     FilmeId = table.Column<int>(type: "int", nullable: false)
                 },
@@ -78,11 +78,6 @@ namespace SistemaLocacao.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateIndex(
-                name: "Cliente_PRIMARY",
-                table: "Clientes",
-                column: "Id");
-
-            migrationBuilder.CreateIndex(
                 name: "idx_CPF",
                 table: "Clientes",
                 column: "CPF",
@@ -91,25 +86,17 @@ namespace SistemaLocacao.Migrations
             migrationBuilder.CreateIndex(
                 name: "idx_NOME",
                 table: "Clientes",
-                column: "Nome",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "Filme_PRIMARY",
-                table: "Filmes",
-                column: "Id");
+                column: "Nome");
 
             migrationBuilder.CreateIndex(
                 name: "idx_Lancamento",
                 table: "Filmes",
-                column: "Lancamento",
-                unique: true);
+                column: "Lancamento");
 
             migrationBuilder.CreateIndex(
                 name: "idx_Titulo",
                 table: "Filmes",
-                column: "Titulo",
-                unique: true);
+                column: "Titulo");
 
             migrationBuilder.CreateIndex(
                 name: "FK_Cliente_idx",
@@ -120,11 +107,6 @@ namespace SistemaLocacao.Migrations
                 name: "FK_Filme_idx",
                 table: "Locacoes",
                 column: "FilmeId");
-
-            migrationBuilder.CreateIndex(
-                name: "Locacao_PRIMARY",
-                table: "Locacoes",
-                column: "Id");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

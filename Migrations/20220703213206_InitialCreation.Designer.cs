@@ -12,8 +12,8 @@ using SistemaLocacao.Data;
 namespace SistemaLocacao.Migrations
 {
     [DbContext(typeof(SistemaLocacaoDbContext))]
-    [Migration("20220630174720_Corrigindo_Relacionamentos_Locacao")]
-    partial class Corrigindo_Relacionamentos_Locacao
+    [Migration("20220703213206_InitialCreation")]
+    partial class InitialCreation
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -46,9 +46,6 @@ namespace SistemaLocacao.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex(new[] { "Id" }, "Cliente_PRIMARY")
-                        .IsUnique();
-
                     b.HasIndex(new[] { "CPF" }, "idx_CPF")
                         .IsUnique();
 
@@ -80,9 +77,6 @@ namespace SistemaLocacao.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex(new[] { "Id" }, "Filme_PRIMARY")
-                        .IsUnique();
-
                     b.HasIndex(new[] { "Lancamento" }, "idx_Lancamento");
 
                     b.HasIndex(new[] { "Titulo" }, "idx_Titulo");
@@ -112,13 +106,9 @@ namespace SistemaLocacao.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex(new[] { "ClienteId" }, "FK_Cliente_idx")
-                        .IsUnique();
+                    b.HasIndex(new[] { "ClienteId" }, "FK_Cliente_idx");
 
-                    b.HasIndex(new[] { "FilmeId" }, "FK_Filme_idx")
-                        .IsUnique();
-
-                    b.HasIndex(new[] { "Id" }, "Locacao_PRIMARY");
+                    b.HasIndex(new[] { "FilmeId" }, "FK_Filme_idx");
 
                     b.ToTable("Locacoes", (string)null);
                 });

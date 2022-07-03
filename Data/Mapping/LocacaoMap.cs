@@ -20,9 +20,6 @@ namespace SistemaLocacao.Data.Mapping
                 .HasColumnName("DataDevolucao")
                 .HasColumnType("DATETIME");
 
-
-            builder.HasIndex(x => x.Id, "Locacao_PRIMARY");
-
             builder.HasIndex(x => x.ClienteId, "FK_Cliente_idx");
 
             builder.HasIndex(x => x.FilmeId, "FK_Filme_idx");
