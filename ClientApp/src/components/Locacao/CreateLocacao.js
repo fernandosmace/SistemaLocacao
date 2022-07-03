@@ -352,6 +352,7 @@ export const CreateLocacao = () => {
 
               <Form.Item label="Lançamento" name="lancamento">
                 <Switch
+                  disabled
                   checked={filmeLancamento}
                   onChange={handleSwitchChange}
                 />
