@@ -63,5 +63,33 @@ namespace SistemaLocacao.Controllers
 
             return Ok(filmesMaisAlugados);
         }
+
+        /// <summary>
+        /// Retorna relatório dos três filmes menos alugados na última semana
+        /// </summary>
+        /// <response code="200">Retorna os três filmes menos alugados na última semana</response>
+        /// <response code="500">Erro interno</response>
+        [Route("/GetFilmesMenosAlugadosSemana")]
+        [HttpGet]
+        public async Task<IActionResult> GetFilmesMenosAlugadosSemana()
+        {
+            var filmesMenosAlugados = await _relatoriosRepository.GetFilmesMenosAlugadosSemana();
+
+            return Ok(filmesMenosAlugados);
+        }
+
+        /// <summary>
+        /// Retorna relatório o cliente que mais alugou filmes
+        /// </summary>
+        /// <response code="200">Retorna o cliente que mais alugou filmes</response>
+        /// <response code="500">Erro interno</response>
+        [Route("/GetSegundoMaiorCliente")]
+        [HttpGet]
+        public async Task<IActionResult> GetSegundoMaiorCliente()
+        {
+            var segundoMelhorCliente = await _relatoriosRepository.GetSegundoMaiorCliente();
+
+            return Ok(segundoMelhorCliente);
+        }
     }
 }

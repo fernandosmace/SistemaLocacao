@@ -7,6 +7,8 @@ namespace SistemaLocacao.Repositories
     {
         public Task<List<LocacaoAtrasadaOutput>> GetLocacoesAtrasadas();
         public Task<List<FilmeOutput>> GetFilmesNuncaAlugados();
-        public Task<List<FilmeMaisAlugadosAnoOutput>> GetFilmesMaisAlugadosAno();
+        public Task<List<FilmeAlugadosOutput>> GetFilmesMaisAlugadosAno();
+        public Task<List<FilmeAlugadosOutput>> GetFilmesMenosAlugadosSemana();
+        public Task<ClienteLocadorOutput> GetSegundoMaiorCliente();
     }
 }

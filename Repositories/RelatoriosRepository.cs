@@ -91,7 +91,7 @@ namespace SistemaLocacao.Repositories
             return await Task.FromResult(filmesOutput);
         }
 
-        public async Task<List<FilmeMaisAlugadosAnoOutput>> GetFilmesMaisAlugadosAno()
+        public async Task<List<FilmeAlugadosOutput>> GetFilmesMaisAlugadosAno()
         {
             var filmes = await _contexto
                                 .Filmes
@@ -105,10 +105,10 @@ namespace SistemaLocacao.Repositories
                                 .Take(5)
                                 .ToListAsync();
 
-            var filmesOutput = new List<FilmeMaisAlugadosAnoOutput>();
+            var filmesOutput = new List<FilmeAlugadosOutput>();
             foreach (var filme in filmes)
             {
-                filmesOutput.Add(new FilmeMaisAlugadosAnoOutput
+                filmesOutput.Add(new FilmeAlugadosOutput
                 {
                     Id = filme.Id,
                     Titulo = filme.Titulo,
@@ -119,6 +119,58 @@ namespace SistemaLocacao.Repositories
             }
 
             return await Task.FromResult(filmesOutput);
+        }
+
+        public async Task<List<FilmeAlugadosOutput>> GetFilmesMenosAlugadosSemana()
+        {
+            var filmes = await _contexto
+                                .Filmes
+                                .AsNoTracking()
+                                .Where(
+                                    x => x.Locacoes.Any(
+                                        y => y.DataLocacao.CompareTo(DateTime.Now.AddDays(-7)) > 0
+                                    ))
+                                .Include(x => x.Locacoes)
+                                .OrderBy(x => x.Locacoes.Count)
+                                .Take(3)
+                                .ToListAsync();
+
+            var filmesOutput = new List<FilmeAlugadosOutput>();
+            foreach (var filme in filmes)
+            {
+                filmesOutput.Add(new FilmeAlugadosOutput
+                {
+                    Id = filme.Id,
+                    Titulo = filme.Titulo,
+                    ClassificacaoIndicativa = filme.ClassificacaoIndicativa,
+                    Lancamento = filme.Lancamento,
+                    QuantidadeDeLocacoes = filme.Locacoes.Count
+                });
+            }
+
+            return await Task.FromResult(filmesOutput);
+        }
+
+        public async Task<ClienteLocadorOutput> GetSegundoMaiorCliente()
+        {
+            var cliente = await _contexto
+                                    .Clientes
+                                    .AsNoTracking()
+                                    .Include(x => x.Locacoes)
+                                    .OrderByDescending(x => x.Locacoes.Count)
+                                    .Skip(1)
+                                    .FirstOrDefaultAsync();
+
+            var clienteLocadorOutput = new ClienteLocadorOutput
+            {
+                Id = cliente.Id,
+                Nome = cliente.Nome,
+                CPF = cliente.CPF,
+                DataNascimento = cliente.DataNascimento,
+                QuantidadeDeLocacoes = cliente.Locacoes.Count
+            };
+
+            return clienteLocadorOutput;
         }
     }
 }
