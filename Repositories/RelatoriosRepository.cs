@@ -66,5 +66,29 @@ namespace SistemaLocacao.Repositories
 
             return await Task.FromResult(locacoesAtrasadas);
         }
+
+        public async Task<List<FilmeOutput>> GetFilmesNuncaAlugados()
+        {
+            var filmes = await _contexto
+                                .Filmes
+                                .AsNoTracking()
+                                .Include(x => x.Locacoes)
+                                .Where(x => x.Locacoes.Count == 0)
+                                .ToListAsync();
+
+            var filmesOutput = new List<FilmeOutput>();
+            foreach (var filme in filmes)
+            {
+                filmesOutput.Add(new FilmeOutput
+                {
+                    Id = filme.Id,
+                    Titulo = filme.Titulo,
+                    ClassificacaoIndicativa = filme.ClassificacaoIndicativa,
+                    Lancamento = filme.Lancamento
+                });
+            }
+
+            return await Task.FromResult(filmesOutput);
+        }
     }
 }

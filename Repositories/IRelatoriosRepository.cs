@@ -6,5 +6,6 @@ namespace SistemaLocacao.Repositories
     public interface IRelatoriosRepository
     {
         public Task<List<LocacaoAtrasadaOutput>> GetLocacoesAtrasadas();
+        public Task<List<FilmeOutput>> GetFilmesNuncaAlugados();
     }
 }
