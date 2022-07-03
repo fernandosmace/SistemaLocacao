@@ -273,8 +273,8 @@ export const UpdateLocacao = () => {
               >
                 {clientes.map((item) => {
                   return (
-                    <Option key={item.key} value={item.id}>
-                      {item.nome}
+                    <Option value={item.id}>
+                      {item.nome + " (CPF: " + item.cpf + ")"}
                     </Option>
                   );
                 })}

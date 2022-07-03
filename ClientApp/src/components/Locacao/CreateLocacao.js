@@ -229,7 +229,11 @@ export const CreateLocacao = () => {
                 }
               >
                 {clientes.map((item) => {
-                  return <Option value={item.id}>{item.nome}</Option>;
+                  return (
+                    <Option value={item.id}>
+                      {item.nome + " (CPF: " + item.cpf + ")"}
+                    </Option>
+                  );
                 })}
               </Select>
             </Form.Item>
