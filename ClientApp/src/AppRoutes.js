@@ -8,6 +8,7 @@ import { UpdateFilme } from "./components/Filme/UpdateFilme";
 import { Locacoes } from "./components/Locacao/Locacoes";
 import { CreateLocacao } from "./components/Locacao/CreateLocacao";
 import { UpdateLocacao } from "./components/Locacao/UpdateLocacao";
+import Relatorios from "./components/Relatorios/Relatorios";
 
 export const AppRoutes = () => {
   return (
@@ -22,6 +23,7 @@ export const AppRoutes = () => {
       <Route path="/locacoes" element={<Locacoes />} />
       <Route path="/create-locacao" element={<CreateLocacao />} />
       <Route path="/update-locacao/:id" element={<UpdateLocacao />} />
+      <Route path="/relatorios" element={<Relatorios />} />
     </Routes>
   );
 };
