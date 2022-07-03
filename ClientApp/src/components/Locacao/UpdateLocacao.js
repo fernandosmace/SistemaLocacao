@@ -30,92 +30,6 @@ export const UpdateLocacao = () => {
   const [filmes, setFilmes] = useState([]);
   const [filmeLancamento, setFilmeLancamento] = useState([]);
 
-  const [UpdateLocacaoForm] = Form.useForm();
-
-  const SetLocacaoForm = (json) => {
-    console.log(json);
-    UpdateLocacaoForm.setFieldsValue({
-      id: json.id,
-      clienteId: json.cliente.id,
-      filmeId: json.filme.id,
-      dataLocacao: moment(json.dataLocacao),
-    });
-
-    if (json.dataDevolucao !== null) {
-      UpdateLocacaoForm.setFieldsValue({
-        dataDevolucao: moment(json.dataDevolucao),
-      });
-    }
-    SetClienteForm(json.cliente);
-    SetFilmeForm(json.filme);
-  };
-
-  const SetClienteForm = (json) => {
-    UpdateLocacaoForm.setFieldsValue({
-      nome: json.nome,
-      cpf: json.cpf,
-      dataNascimento: moment(json.dataNascimento),
-    });
-  };
-
-  const SetFilmeForm = (json) => {
-    UpdateLocacaoForm.setFieldsValue({
-      titulo: json.titulo,
-      classificacaoIndicativa: json.classificacaoIndicativa,
-    });
-
-    setFilmeLancamento(json.lancamento);
-  };
-
-  const handleSwitchChange = () => {
-    switch (filmeLancamento) {
-      case 0:
-        setFilmeLancamento(1);
-        break;
-      case 1:
-        setFilmeLancamento(0);
-        break;
-      default:
-        setFilmeLancamento(1);
-        break;
-    }
-  };
-
-  const clienteSearchHandler = (idCliente) => {
-    getCliente(idCliente).then((response) => {
-      let getText = response.text();
-      if (response.status !== 200) {
-        getText.then((value) => {
-          swal("Ocorreu um erro ao buscar o cliente.", value, "error");
-        });
-      } else {
-        getText.then((value) => {
-          const json = JSON.parse(value);
-          setCliente(json);
-          console.log(cliente);
-          SetClienteForm(json);
-        });
-      }
-    });
-  };
-
-  const filmeSearchHandler = (idFilme) => {
-    getFilme(idFilme).then((response) => {
-      let getText = response.text();
-      if (response.status !== 200) {
-        getText.then((value) => {
-          swal("Ocorreu um erro ao buscar o filme.", value, "error");
-        });
-      } else {
-        getText.then((value) => {
-          const json = JSON.parse(value);
-          setFilme(json);
-          SetFilmeForm(json);
-        });
-      }
-    });
-  };
-
   const { id } = useParams();
   let idLocacao = id;
 
@@ -135,6 +49,7 @@ export const UpdateLocacao = () => {
         });
       }
     });
+
     getAllClientes().then((response) => {
       if (response.status !== 200) {
         swal(
@@ -211,8 +126,47 @@ export const UpdateLocacao = () => {
           const json = JSON.parse(value);
           setFilme(json);
           SetFilmeForm(json);
+          console.log(json);
         });
       }
+    });
+  };
+
+  const [UpdateLocacaoForm] = Form.useForm();
+
+  const SetLocacaoForm = (json) => {
+    UpdateLocacaoForm.setFieldsValue({
+      id: json.id,
+      clienteId: json.cliente.id,
+      filmeId: json.filme.id,
+      dataLocacao: moment(json.dataLocacao),
+    });
+
+    if (json.dataDevolucao !== null) {
+      UpdateLocacaoForm.setFieldsValue({
+        dataDevolucao: moment(json.dataDevolucao),
+      });
+    }
+    SetClienteForm(json.cliente);
+    SetFilmeForm(json.filme);
+  };
+
+  const SetClienteForm = (json) => {
+    let cpfFormatted = json.cpf.replace(
+      /(\d{3})(\d{3})(\d{3})(\d{2})/,
+      "$1.$2.$3-$4"
+    );
+    UpdateLocacaoForm.setFieldsValue({
+      nome: json.nome,
+      cpf: cpfFormatted,
+      dataNascimento: moment(json.dataNascimento),
+    });
+  };
+
+  const SetFilmeForm = (json) => {
+    UpdateLocacaoForm.setFieldsValue({
+      titulo: json.titulo,
+      classificacaoIndicativa: json.classificacaoIndicativa,
     });
   };
 
@@ -318,7 +272,11 @@ export const UpdateLocacao = () => {
                 }
               >
                 {clientes.map((item) => {
-                  return <Option value={item.id}>{item.nome}</Option>;
+                  return (
+                    <Option key={item.key} value={item.id}>
+                      {item.nome}
+                    </Option>
+                  );
                 })}
               </Select>
             </Form.Item>
@@ -348,7 +306,11 @@ export const UpdateLocacao = () => {
                 }
               >
                 {filmes.map((item) => {
-                  return <Option value={item.id}>{item.titulo}</Option>;
+                  return (
+                    <Option key={item.key} value={item.id}>
+                      {item.titulo}
+                    </Option>
+                  );
                 })}
               </Select>
             </Form.Item>
@@ -415,13 +377,12 @@ export const UpdateLocacao = () => {
               </Form.Item>
 
               <Form.Item label="CPF" name="cpf">
-                <MaskedInput
+                <Input
                   disabled
                   style={{
                     textAlign: "center",
-                    width: "25%",
+                    width: "35%",
                   }}
-                  mask={"000.000.000-00"}
                 />
               </Form.Item>
 
@@ -467,11 +428,7 @@ export const UpdateLocacao = () => {
               </Form.Item>
 
               <Form.Item label="Lançamento" name="lancamento">
-                <Switch
-                  disabled
-                  checked={filmeLancamento}
-                  onChange={handleSwitchChange}
-                />
+                <Switch disabled checked={filmeLancamento} />
               </Form.Item>
             </div>
           </Col>
