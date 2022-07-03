@@ -3,6 +3,7 @@ import ClientesEmAtraso from "./ClientesEmAtraso";
 import FilmesNuncaAlugados from "./FilmesNuncaAlugados";
 import FilmesMaisAlugadosAno from "./FilmesMaisAlugadosAno";
 import FilmesMenosAlugadosSemana from "./FilmesMenosAlugadosSemana";
+import SegundoMaiorCliente from "./SegundoMaiorCliente";
 const { Title } = Typography;
 const { TabPane } = Tabs;
 
@@ -33,7 +34,7 @@ const Relatorios = () => {
           <FilmesMenosAlugadosSemana />
         </TabPane>
         <TabPane tab={"Segundo maior cliente"} key={5}>
-          Segundo maior cliente
+          <SegundoMaiorCliente />
         </TabPane>
       </Tabs>
     </div>
