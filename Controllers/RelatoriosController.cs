@@ -49,5 +49,19 @@ namespace SistemaLocacao.Controllers
 
             return Ok(filmesNuncaAlugados);
         }
+
+        /// <summary>
+        /// Retorna relatório dos cinco filmes mais alugados no último ano
+        /// </summary>
+        /// <response code="200">Retorna os cinco filmes mais alugados no último ano</response>
+        /// <response code="500">Erro interno</response>
+        [Route("/GetFilmesMaisAlugadosAno")]
+        [HttpGet]
+        public async Task<IActionResult> GetFilmesMaisAlugadosAno()
+        {
+            var filmesMaisAlugados = await _relatoriosRepository.GetFilmesMaisAlugadosAno();
+
+            return Ok(filmesMaisAlugados);
+        }
     }
 }

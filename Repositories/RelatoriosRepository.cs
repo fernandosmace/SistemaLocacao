@@ -90,5 +90,35 @@ namespace SistemaLocacao.Repositories
 
             return await Task.FromResult(filmesOutput);
         }
+
+        public async Task<List<FilmeMaisAlugadosAnoOutput>> GetFilmesMaisAlugadosAno()
+        {
+            var filmes = await _contexto
+                                .Filmes
+                                .AsNoTracking()
+                                .Where(
+                                    x => x.Locacoes.Any(
+                                        y => y.DataLocacao.CompareTo(DateTime.Now.AddDays(-365)) > 0
+                                    ))
+                                .Include(x => x.Locacoes)
+                                .OrderByDescending(x => x.Locacoes.Count)
+                                .Take(5)
+                                .ToListAsync();
+
+            var filmesOutput = new List<FilmeMaisAlugadosAnoOutput>();
+            foreach (var filme in filmes)
+            {
+                filmesOutput.Add(new FilmeMaisAlugadosAnoOutput
+                {
+                    Id = filme.Id,
+                    Titulo = filme.Titulo,
+                    ClassificacaoIndicativa = filme.ClassificacaoIndicativa,
+                    Lancamento = filme.Lancamento,
+                    QuantidadeDeLocacoes = filme.Locacoes.Count
+                });
+            }
+
+            return await Task.FromResult(filmesOutput);
+        }
     }
 }
