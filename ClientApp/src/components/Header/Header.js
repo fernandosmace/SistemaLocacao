@@ -6,7 +6,7 @@ import { PageHeader, Button } from "antd";
 const Header = () => (
   <PageHeader
     className="site-page-header"
-    title="Sistema Locação"
+    title={<Link to="/">Sistema de Locação</Link>}
     subTitle="Gestão de locações de filmes"
     extra={[
       <Button key="4">
