@@ -34,6 +34,7 @@ builder.Services.AddSwaggerGen(options =>
 builder.Services.AddScoped<IClienteRepository, ClienteRepository>();
 builder.Services.AddScoped<IFilmeRepository, FilmeRepository>();
 builder.Services.AddScoped<ILocacaoRepository, LocacaoRepository>();
+builder.Services.AddScoped<IRelatoriosRepository, RelatoriosRepository>();
 
 var app = builder.Build();
 
