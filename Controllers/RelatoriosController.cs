@@ -27,6 +27,7 @@ namespace SistemaLocacao.Controllers
         /// </summary>
         /// <response code="200">Retorna todos as locações atrasadas</response>
         /// <response code="500">Erro interno</response>
+        [Route("/GetLocacoesAtrasadas")]
         [HttpGet]
         public async Task<IActionResult> GetLocacoesAtrasadas()
         {
@@ -40,6 +41,7 @@ namespace SistemaLocacao.Controllers
         /// </summary>
         /// <response code="200">Retorna todos os filmes que nunca foram alugados</response>
         /// <response code="500">Erro interno</response>
+        [Route("/GetFilmesNuncaAlugados")]
         [HttpGet]
         public async Task<IActionResult> GetFilmesNuncaAlugados()
         {
