@@ -1,5 +1,6 @@
 import { Typography, Tabs } from "antd";
 import ClientesEmAtraso from "./ClientesEmAtraso";
+import FilmesNuncaAlugados from "./FilmesNuncaAlugados";
 const { Title } = Typography;
 const { TabPane } = Tabs;
 
@@ -21,7 +22,7 @@ const Relatorios = () => {
           <ClientesEmAtraso />
         </TabPane>
         <TabPane tab={"Filmes nunca alugados"} key={2}>
-          Filmes nunca alugados
+          <FilmesNuncaAlugados />
         </TabPane>
         <TabPane tab={"Cinco mais alugados no último ano"} key={3}>
           Cinco mais alugados no último ano
