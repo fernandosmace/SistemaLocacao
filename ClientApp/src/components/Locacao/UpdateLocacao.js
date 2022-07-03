@@ -12,19 +12,22 @@ import {
   Row,
   Col,
   Divider,
+  Select,
 } from "antd";
 import { getLocacao, updateLocacao } from "../../services/LocacaoService";
-import { getCliente } from "../../services/ClienteService";
-import { getFilme } from "../../services/FilmeService";
+import { getCliente, getAllClientes } from "../../services/ClienteService";
+import { getFilme, getAllFilmes } from "../../services/FilmeService";
 import swal from "sweetalert";
 import { MaskedInput } from "antd-mask-input";
 import moment from "moment";
 const { Title } = Typography;
-const { Search } = Input;
+const { Option } = Select;
 
 export const UpdateLocacao = () => {
   const [cliente, setCliente] = useState([]);
+  const [clientes, setClientes] = useState([]);
   const [filme, setFilme] = useState([]);
+  const [filmes, setFilmes] = useState([]);
   const [filmeLancamento, setFilmeLancamento] = useState([]);
 
   const [UpdateLocacaoForm] = Form.useForm();
@@ -132,7 +135,86 @@ export const UpdateLocacao = () => {
         });
       }
     });
+    getAllClientes().then((response) => {
+      if (response.status !== 200) {
+        swal(
+          "Ocorreu um erro ao buscar os cliente.",
+          "Contate o administrador do sistema.",
+          "error"
+        );
+      } else {
+        var json = response.json();
+        json.then((clientes) => {
+          clientes.map((item) => {
+            item.key = item.id;
+            item.cpf = item.cpf.replace(
+              /(\d{3})(\d{3})(\d{3})(\d{2})/,
+              "$1.$2.$3-$4"
+            );
+            item.dataNascimento = moment(item.dataNascimento).format(
+              "DD/MM/YYYY"
+            );
+            return item;
+          });
+          setClientes(clientes);
+        });
+      }
+    });
+
+    getAllFilmes().then((response) => {
+      if (response.status !== 200) {
+        swal(
+          "Ocorreu um erro ao buscar os filmes.",
+          "Contate o administrador do sistema.",
+          "error"
+        );
+      } else {
+        var json = response.json();
+        json.then((filmes) => {
+          filmes.map((item) => {
+            item.key = item.id;
+            item.lancamento = item.lancamento == 1 ? "Sim" : "Não";
+            return item;
+          });
+          setFilmes(filmes);
+        });
+      }
+    });
   }, []);
+
+  const handleClientSelect = (idCliente) => {
+    getCliente(idCliente).then((response) => {
+      let getText = response.text();
+      if (response.status !== 200) {
+        getText.then((value) => {
+          swal("Ocorreu um erro ao buscar o cliente.", value, "error");
+        });
+      } else {
+        getText.then((value) => {
+          const json = JSON.parse(value);
+          setCliente(json);
+          SetClienteForm(json);
+        });
+      }
+    });
+  };
+
+  const handleFilmeSelect = (idFilme) => {
+    getFilme(idFilme).then((response) => {
+      let getText = response.text();
+      if (response.status !== 200) {
+        getText.then((value) => {
+          swal("Ocorreu um erro ao buscar o filme.", value, "error");
+        });
+      } else {
+        getText.then((value) => {
+          const json = JSON.parse(value);
+          setFilme(json);
+          SetFilmeForm(json);
+        });
+      }
+    });
+  };
 
   const onFinish = async (values) => {
     if (cliente.length == 0) {
@@ -211,7 +293,10 @@ export const UpdateLocacao = () => {
               />
             </Form.Item>
             <Form.Item
-              label="Id Cliente"
+              style={{
+                width: "45%",
+              }}
+              label="Cliente"
               name="clienteId"
               rules={[
                 {
@@ -224,16 +309,24 @@ export const UpdateLocacao = () => {
                 },
               ]}
             >
-              <Search
-                style={{
-                  width: "35%",
-                }}
-                enterButton="Buscar Cliente"
-                onSearch={clienteSearchHandler}
-              />
+              <Select
+                showSearch
+                optionFilterProp="children"
+                onSelect={handleClientSelect}
+                filterOption={(input, option) =>
+                  option.children.toLowerCase().includes(input.toLowerCase())
+                }
+              >
+                {clientes.map((item) => {
+                  return <Option value={item.id}>{item.nome}</Option>;
+                })}
+              </Select>
             </Form.Item>
             <Form.Item
-              label="Id Filme"
+              style={{
+                width: "45%",
+              }}
+              label="Filme"
               name="filmeId"
               rules={[
                 {
@@ -246,13 +339,18 @@ export const UpdateLocacao = () => {
                 },
               ]}
             >
-              <Search
-                style={{
-                  width: "35%",
-                }}
-                enterButton="Buscar Filme"
-                onSearch={filmeSearchHandler}
-              />
+              <Select
+                showSearch
+                optionFilterProp="children"
+                onSelect={handleFilmeSelect}
+                filterOption={(input, option) =>
+                  option.children.toLowerCase().includes(input.toLowerCase())
+                }
+              >
+                {filmes.map((item) => {
+                  return <Option value={item.id}>{item.titulo}</Option>;
+                })}
+              </Select>
             </Form.Item>
           </Col>
           <Col span={10} justify="center">

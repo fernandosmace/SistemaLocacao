@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Typography,
   Button,
@@ -11,23 +11,72 @@ import {
   Row,
   Col,
   Divider,
+  Select,
 } from "antd";
 import { createLocacao } from "../../services/LocacaoService";
-import { getCliente } from "../../services/ClienteService";
-import { getFilme } from "../../services/FilmeService";
+import { getCliente, getAllClientes } from "../../services/ClienteService";
+import { getFilme, getAllFilmes } from "../../services/FilmeService";
 import swal from "sweetalert";
 import { MaskedInput } from "antd-mask-input";
 import moment from "moment";
 const { Title } = Typography;
-const { Search } = Input;
+const { Option } = Select;
 
 export const CreateLocacao = () => {
   const [cliente, setCliente] = useState([]);
+  const [clientes, setClientes] = useState([]);
   const [filme, setFilme] = useState([]);
+  const [filmes, setFilmes] = useState([]);
   const [filmeLancamento, setFilmeLancamento] = useState([]);
 
   const [CreateLocacaoForm] = Form.useForm();
+  useEffect(() => {
+    getAllClientes().then((response) => {
+      if (response.status !== 200) {
+        swal(
+          "Ocorreu um erro ao buscar os cliente.",
+          "Contate o administrador do sistema.",
+          "error"
+        );
+      } else {
+        var json = response.json();
+        json.then((clientes) => {
+          clientes.map((item) => {
+            item.key = item.id;
+            item.cpf = item.cpf.replace(
+              /(\d{3})(\d{3})(\d{3})(\d{2})/,
+              "$1.$2.$3-$4"
+            );
+            item.dataNascimento = moment(item.dataNascimento).format(
+              "DD/MM/YYYY"
+            );
+            return item;
+          });
+          setClientes(clientes);
+        });
+      }
+    });
 
+    getAllFilmes().then((response) => {
+      if (response.status !== 200) {
+        swal(
+          "Ocorreu um erro ao buscar os filmes.",
+          "Contate o administrador do sistema.",
+          "error"
+        );
+      } else {
+        var json = response.json();
+        json.then((filmes) => {
+          filmes.map((item) => {
+            item.key = item.id;
+            item.lancamento = item.lancamento == 1 ? "Sim" : "Não";
+            return item;
+          });
+          setFilmes(filmes);
+        });
+      }
+    });
+  });
   const ResetForm = () => {
     CreateLocacaoForm.resetFields();
   };
@@ -62,8 +111,7 @@ export const CreateLocacao = () => {
         break;
     }
   };
-
-  const clienteSearchHandler = (idCliente) => {
+  const handleClientSelect = (idCliente) => {
     getCliente(idCliente).then((response) => {
       let getText = response.text();
       if (response.status !== 200) {
@@ -80,7 +128,7 @@ export const CreateLocacao = () => {
     });
   };
 
-  const filmeSearchHandler = (idFilme) => {
+  const handleFilmeSelect = (idFilme) => {
     getFilme(idFilme).then((response) => {
       let getText = response.text();
       if (response.status !== 200) {
@@ -154,7 +202,7 @@ export const CreateLocacao = () => {
               style={{
                 width: "25%",
               }}
-              label="Id Cliente"
+              label="Cliente"
               name="clienteId"
               rules={[
                 {
@@ -167,16 +215,24 @@ export const CreateLocacao = () => {
                 },
               ]}
             >
-              <Search
-                enterButton="Buscar Cliente"
-                onSearch={clienteSearchHandler}
-              />
+              <Select
+                showSearch
+                optionFilterProp="children"
+                onSelect={handleClientSelect}
+                filterOption={(input, option) =>
+                  option.children.toLowerCase().includes(input.toLowerCase())
+                }
+              >
+                {clientes.map((item) => {
+                  return <Option value={item.id}>{item.nome}</Option>;
+                })}
+              </Select>
             </Form.Item>
             <Form.Item
               style={{
                 width: "25%",
               }}
-              label="Id Filme"
+              label="Filme"
               name="filmeId"
               rules={[
                 {
@@ -189,10 +245,18 @@ export const CreateLocacao = () => {
                 },
               ]}
             >
-              <Search
-                enterButton="Buscar Filme"
-                onSearch={filmeSearchHandler}
-              />
+              <Select
+                showSearch
+                optionFilterProp="children"
+                onSelect={handleFilmeSelect}
+                filterOption={(input, option) =>
+                  option.children.toLowerCase().includes(input.toLowerCase())
+                }
+              >
+                {filmes.map((item) => {
+                  return <Option value={item.id}>{item.titulo}</Option>;
+                })}
+              </Select>
             </Form.Item>
             <Form.Item>
               <Button type="primary" htmlType="submit">
