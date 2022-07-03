@@ -45,6 +45,8 @@ export const DisplayBoard = () => {
 
   const deleteLocacaoHandler = (idLocacao) => {
     swal("Tem certeza que deseja excluir esta locação?", {
+      icon: "warning",
+      dangerMode: true,
       buttons: {
         cancel: "Não",
         confirm: {

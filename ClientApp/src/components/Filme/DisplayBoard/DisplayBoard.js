@@ -33,6 +33,8 @@ export const DisplayBoard = () => {
 
   const deleteFilmeHandler = (idFilme) => {
     swal("Tem certeza que deseja excluir este filme?", {
+      icon: "warning",
+      dangerMode: true,
       buttons: {
         cancel: "Não",
         confirm: {

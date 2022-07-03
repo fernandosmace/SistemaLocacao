@@ -43,6 +43,8 @@ export const DisplayBoard = () => {
 
   const deleteClienteHandler = (idCliente) => {
     swal("Tem certeza que deseja excluir este cliente?", {
+      icon: "warning",
+      dangerMode: true,
       buttons: {
         cancel: "Não",
         confirm: {
