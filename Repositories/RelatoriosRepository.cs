@@ -30,14 +30,11 @@ namespace SistemaLocacao.Repositories
                 var diasDeLocacao = (int)DateTime.Now.Subtract(locacao.DataLocacao).TotalDays;
                 int diasDeAtraso = 0;
 
-                if (locacao.Filme.Lancamento == 1)
-                {
-                    if (diasDeLocacao > 2)
-                        diasDeAtraso = diasDeLocacao - 2;
+                if (locacao.Filme.Lancamento == 1 && diasDeLocacao > 2)
+                    diasDeAtraso = diasDeLocacao - 2;
 
-                    if (diasDeLocacao > 3)
-                        diasDeAtraso = diasDeLocacao - 3;
-                }
+                if (locacao.Filme.Lancamento != 1 && diasDeLocacao > 3)
+                    diasDeAtraso = diasDeLocacao - 3;
 
                 if (diasDeAtraso > 0)
                 {
