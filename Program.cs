@@ -45,6 +45,12 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
+using (var scope = app.Services.CreateScope())
+{
+    var dataContext = scope.ServiceProvider.GetRequiredService<SistemaLocacaoDbContext>();
+    dataContext.Database.Migrate();
+}
+
 app.UseSwagger();
 app.UseSwaggerUI();
 
